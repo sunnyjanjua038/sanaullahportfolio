@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Sana Ullah | Frontend Developer & AI/ML Enthusiast</title>
+    <meta
+      name="description"
+      content="Sana Ullah — Frontend Developer specializing in React.js, Next.js, TypeScript and Tailwind CSS, with practical experience in AI/ML, LLM fine-tuning and RAG systems."
+    />
+    <meta name="author" content="Sana Ullah" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Sana Ullah | Frontend Developer & AI/ML Enthusiast" />
+    <meta
+      property="og:description"
+      content="Frontend Developer specializing in React.js, Next.js and modern web technologies, with practical experience in AI/ML, LLM workflows, RAG systems and model fine-tuning."
+    />
+    <meta property="og:site_name" content="Sana Ullah — Portfolio" />
+  </head>
+  <body>
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem("theme");
+          var theme =
+            stored === "light" || stored === "dark"
+              ? stored
+              : window.matchMedia("(prefers-color-scheme: light)").matches
+              ? "light"
+              : "dark";
+          if (theme === "light") document.documentElement.classList.add("light");
+        } catch (e) {}
+      })();
+    </script>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
