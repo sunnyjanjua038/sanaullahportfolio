@@ -110,10 +110,10 @@ export const experience: ExperienceItem[] = [
     id: "a1f9c2d",
     company: "Zie Pie",
     role: "Frontend Developer",
-    period: "Dec 2025 — Present",
+    period: "Dec 2025 — Oct 2026",
     location: "Remote",
-    current: true,
-    summary: "Building the frontend of the Zie Pie bookkeeping application.",
+    current: false,
+    summary: "Built the frontend of the Zie Pie bookkeeping application.",
     points: [
       "Developed features for the Zie Pie bookkeeping application using React and JavaScript, focusing on responsive, user-friendly interfaces",
       "Implemented layouts and styling with Tailwind CSS, ensuring consistent design and modern UI components across the product",
@@ -196,30 +196,57 @@ export const projects: Project[] = [
   },
 ];
 
-export type EducationItem = {
-  degree: string;
-  institution?: string;
-  year: string;
-  details?: string;
+export type LiveProject = {
+  id: string;
+  name: string;
+  kind: string;
+  description: string;
+  highlights: string[];
+  url: string;
+  image: string;
 };
 
-export const education: EducationItem[] = [
+// Deployed client & personal projects (screenshots in /public/projects).
+export const liveProjects: LiveProject[] = [
   {
-    degree: "BS Software Engineering",
-    institution: "Minhaj University Lahore",
-    year: "2023",
-    details:
-      "Object-Oriented Programming, Programming Fundamentals, Visual Programming, Web Development, Cloud Computing, ICT",
+    id: "careerai",
+    name: "CareerAI",
+    kind: "AI SaaS Platform",
+    description:
+      "AI-powered career platform that helps job seekers build ATS-friendly CVs, match with relevant jobs, generate cover letters and practise interviews.",
+    highlights: ["AI CV Builder", "Job Matching", "Interview Coach", "Application Tracker"],
+    url: "https://careerai-virid.vercel.app/",
+    image: "/projects/careerai-virid.webp",
   },
   {
-    degree: "ICS — Intermediate in Computer Science",
-    year: "2019",
-    details: "Computer Science, Physics, Mathematics",
+    id: "digitech",
+    name: "DigiTech Learning Institute",
+    kind: "Education Website",
+    description:
+      "Website for a coding institute in Kamalia teaching HTML/CSS through React, C#, .NET and SQL — plus a services arm building websites and custom software.",
+    highlights: ["Course Catalogue", "Admissions", "Services", "Dark UI"],
+    url: "https://digitechlearninginstitute.vercel.app/",
+    image: "/projects/digitechlearninginstitute.webp",
   },
   {
-    degree: "Matriculation",
-    year: "2016",
-    details: "Computer Science, Physics, Chemistry, Mathematics",
+    id: "kamalia-business",
+    name: "Kamalia Business",
+    kind: "Local Business Directory",
+    description:
+      "A city directory where people discover local shops, restaurants and services, and owners list their business for free with verified profiles.",
+    highlights: ["Search & Categories", "Verified Profiles", "Free Listings", "Reviews"],
+    url: "https://kamaliabusiness.vercel.app/",
+    image: "/projects/kamaliabusiness.webp",
+  },
+  {
+    id: "ittefaq",
+    name: "Ittefaq Cooling Centre",
+    kind: "Business Website",
+    description:
+      "Website for an AC, fridge and appliance repair business in Kamalia — services, warranty, branches and one-tap call / repair-request actions.",
+    highlights: ["Services", "Warranty", "Branches", "Repair Booking"],
+    url: "https://ittefaq-cooling-centre.vercel.app/",
+    image: "/projects/ittefaq-cooling-centre.webp",
   },
 ];
 
@@ -229,6 +256,5 @@ export const navLinks = [
   { label: "AI/ML", href: "#ai-ml" },
   { label: "Experience", href: "#experience" },
   { label: "Projects", href: "#projects" },
-  { label: "Education", href: "#education" },
   { label: "Contact", href: "#contact" },
 ];

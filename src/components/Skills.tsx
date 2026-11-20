@@ -1,56 +1,50 @@
+import { FiLayout, FiPenTool, FiTool, FiCpu } from "react-icons/fi";
 import Reveal from "./Reveal";
+import SectionHeader from "./SectionHeader";
 import { skillGroups } from "../data/portfolio";
 
-function slug(title: string) {
-  return title
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "_")
-    .replace(/^_+|_+$/g, "");
-}
+const icons = [<FiLayout />, <FiPenTool />, <FiTool />, <FiCpu />];
 
 export default function Skills() {
   return (
-    <section id="skills" className="mx-auto max-w-6xl px-5 sm:px-8 py-24 sm:py-28">
-      <Reveal>
-        <div className="mb-3 flex items-center gap-2.5">
-          <span className="h-px w-8 bg-[var(--color-cyan)]" />
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--color-muted)]">
-            Skills
-          </p>
-        </div>
-        <h2 className="font-[var(--font-display)] text-3xl sm:text-4xl font-bold text-[var(--color-text)]">
-          What I work with
-        </h2>
-      </Reveal>
+    <section id="skills" className="py-28 sm:py-32">
+      <div className="mx-auto max-w-6xl px-5 sm:px-8">
+        <SectionHeader
+          index="02"
+          label="Skills"
+          center
+          title={
+            <>
+              My <span className="chrome-text">tech stack</span>
+            </>
+          }
+          intro="A modern frontend toolkit, backed by hands-on experience with LLMs, embeddings and retrieval."
+        />
 
-      <div className="mt-10 grid sm:grid-cols-2 gap-5">
-        {skillGroups.map((group, i) => (
-          <Reveal key={group.title} delay={i * 80}>
-            <div className="h-full rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6 transition-all duration-300 hover:border-[var(--color-cyan)]/50 hover:-translate-y-1">
-              <p className="font-mono text-xs text-[var(--color-muted)] mb-3">
-                <span className="text-[var(--color-violet)]">import</span>{" "}
-                &#123; {group.skills.length} skills &#125;{" "}
-                <span className="text-[var(--color-violet)]">from</span>{" "}
-                <span className="text-[var(--color-amber)]">
-                  "./{slug(group.title)}"
-                </span>
-              </p>
-              <h3 className="font-semibold text-[var(--color-text)] mb-4">
-                {group.title}
-              </h3>
-              <div className="flex flex-wrap gap-2">
-                {group.skills.map((skill) => (
-                  <span
-                    key={skill}
-                    className="rounded-md bg-[var(--color-surface-2)] border border-[var(--color-border)] px-2.5 py-1 text-xs text-[var(--color-text)]"
-                  >
-                    {skill}
+        <div className="mt-16 grid gap-5 md:grid-cols-2">
+          {skillGroups.map((group, i) => (
+            <Reveal key={group.title} delay={(i % 2) * 100} className="h-full">
+              <div className="glass-panel spot h-full rounded-3xl p-8 transition-transform duration-300 hover:-translate-y-1">
+                <div className="flex items-center justify-between">
+                  <span className="grid h-12 w-12 place-items-center rounded-2xl bg-gradient-to-b from-white to-[#c8c8cf] text-xl text-black shadow-[0_8px_24px_-8px_rgba(255,255,255,0.45)]">
+                    {icons[i % icons.length]}
                   </span>
-                ))}
+                  <span className="text-5xl font-extrabold text-white/[0.07]">
+                    {String(group.skills.length).padStart(2, "0")}
+                  </span>
+                </div>
+                <h3 className="mt-6 text-2xl font-bold tracking-tight">{group.title}</h3>
+                <div className="mt-5 flex flex-wrap gap-2">
+                  {group.skills.map((skill) => (
+                    <span key={skill} className="chip">
+                      {skill}
+                    </span>
+                  ))}
+                </div>
               </div>
-            </div>
-          </Reveal>
-        ))}
+            </Reveal>
+          ))}
+        </div>
       </div>
     </section>
   );

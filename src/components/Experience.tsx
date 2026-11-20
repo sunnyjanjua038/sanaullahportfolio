@@ -1,81 +1,57 @@
-import { FiGitCommit } from "react-icons/fi";
+import { FiBriefcase } from "react-icons/fi";
 import Reveal from "./Reveal";
+import SectionHeader from "./SectionHeader";
 import { experience } from "../data/portfolio";
 
 export default function Experience() {
   return (
-    <section id="experience" className="mx-auto max-w-6xl px-5 sm:px-8 py-24 sm:py-28">
-      <Reveal>
-        <div className="mb-3 flex items-center gap-2.5">
-          <span className="h-px w-8 bg-[var(--color-cyan)]" />
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--color-muted)]">
-            Experience
-          </p>
-        </div>
-        <h2 className="font-[var(--font-display)] text-3xl sm:text-4xl font-bold text-[var(--color-text)]">
-          Where I've worked
-        </h2>
-      </Reveal>
+    <section id="experience" className="py-28 sm:py-32">
+      <div className="mx-auto max-w-6xl px-5 sm:px-8">
+        <SectionHeader
+          index="04"
+          label="Experience"
+          title={
+            <>
+              Where I've <span className="chrome-text">worked</span>
+            </>
+          }
+        />
 
-      <div className="mt-12 relative">
-        <div className="absolute left-[9px] top-2 bottom-2 w-px bg-[var(--color-border)]" />
+        <div className="relative mt-16">
+          <div className="absolute bottom-4 left-[23px] top-4 w-px bg-gradient-to-b from-white/60 via-white/15 to-transparent md:left-[27px]" />
 
-        <div className="space-y-10">
-          {experience.map((job, i) => (
-            <Reveal key={job.id} delay={i * 100}>
-              <div className="relative pl-9">
-                <span
-                  className={`absolute left-0 top-1 flex h-5 w-5 items-center justify-center rounded-full border ${
-                    job.current
-                      ? "border-[var(--color-cyan)] bg-[var(--color-cyan)]/15"
-                      : "border-[var(--color-border)] bg-[var(--color-surface)]"
-                  }`}
-                >
-                  <FiGitCommit
-                    className={`text-[11px] ${
-                      job.current ? "text-[var(--color-cyan)]" : "text-[var(--color-muted)]"
-                    }`}
-                  />
-                </span>
+          <div className="space-y-8">
+            {experience.map((job, i) => (
+              <Reveal key={job.id} delay={i * 120}>
+                <div id={`exp-${job.id}`} className="relative scroll-mt-24 pl-16 md:pl-20">
+                  <span className="absolute left-0 top-6 grid h-12 w-12 place-items-center rounded-2xl bg-gradient-to-b from-white to-[#c8c8cf] text-lg text-black shadow-[0_0_30px_-6px_rgba(255,255,255,0.5)] md:h-14 md:w-14">
+                    <FiBriefcase />
+                  </span>
 
-                <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6">
-                  <div className="flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-xs text-[var(--color-muted)]">
-                    <span className="text-[var(--color-amber)]">#{job.id}</span>
-                    <span>{job.period}</span>
-                    {job.location && (
-                      <span className="rounded-full bg-[var(--color-violet)]/15 text-[var(--color-violet)] px-2 py-0.5">
-                        {job.location}
-                      </span>
-                    )}
-                    {job.current && (
-                      <span className="rounded-full bg-[var(--color-cyan)]/15 text-[var(--color-cyan)] px-2 py-0.5">
-                        current
-                      </span>
-                    )}
-                  </div>
+                  <article className="glass-panel spot rounded-3xl p-7 sm:p-9">
+                    <div className="flex flex-wrap items-start justify-between gap-4">
+                      <div>
+                        <h3 className="text-2xl font-bold tracking-tight">{job.role}</h3>
+                        <p className="chrome-text mt-1 inline-block text-lg font-semibold">{job.company}</p>
+                      </div>
+                      <span className="chip font-mono !text-xs">{job.period}</span>
+                    </div>
 
-                  <h3 className="mt-2 text-lg font-semibold text-[var(--color-text)]">
-                    {job.role}{" "}
-                    <span className="text-[var(--color-muted)] font-normal">
-                      @ {job.company}
-                    </span>
-                  </h3>
+                    <p className="mt-4 text-[var(--color-muted)]">{job.summary}</p>
 
-                  <ul className="mt-4 space-y-2">
-                    {job.points.map((point, idx) => (
-                      <li
-                        key={idx}
-                        className="flex gap-2.5 text-sm text-[var(--color-muted)] leading-relaxed"
-                      >
-                        <span className="font-mono text-[var(--color-cyan)] shrink-0">+</span>
-                        {point}
-                      </li>
-                    ))}
-                  </ul>
+                    <ul className="mt-6 grid gap-x-8 gap-y-3 lg:grid-cols-2">
+                      {job.points.map((point) => (
+                        <li key={point} className="flex gap-3 text-sm leading-relaxed text-[var(--color-muted)]">
+                          <span className="mt-[7px] h-1.5 w-1.5 shrink-0 rotate-45 bg-[var(--color-accent)]" />
+                          {point}
+                        </li>
+                      ))}
+                    </ul>
+                  </article>
                 </div>
-              </div>
-            </Reveal>
-          ))}
+              </Reveal>
+            ))}
+          </div>
         </div>
       </div>
     </section>

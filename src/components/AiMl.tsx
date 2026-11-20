@@ -1,51 +1,44 @@
-import { FiCpu } from "react-icons/fi";
 import Reveal from "./Reveal";
+import Crystal from "./Crystal";
 import { aiMl } from "../data/portfolio";
 
 export default function AiMl() {
   return (
-    <section
-      id="ai-ml"
-      className="relative py-24 sm:py-28 border-y border-[var(--color-border)] bg-[var(--color-surface)]/40"
-    >
-      <div className="pointer-events-none absolute inset-0 bg-grid opacity-40" />
-      <div className="relative mx-auto max-w-6xl px-5 sm:px-8">
+    <section id="ai-ml" className="py-12">
+      <div className="mx-auto max-w-6xl px-5 sm:px-8">
         <Reveal>
-          <div className="mb-3 flex items-center gap-2.5">
-            <span className="h-px w-8 bg-[var(--color-violet)]" />
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--color-muted)]">
-              Specialization
-            </p>
-          </div>
-          <div className="flex items-center gap-3">
-            <FiCpu className="text-2xl text-[var(--color-violet)]" />
-            <h2 className="font-[var(--font-display)] text-3xl sm:text-4xl font-bold text-[var(--color-text)]">
-              {aiMl.title}
-            </h2>
+          <div className="glass-panel relative overflow-hidden rounded-[2rem] p-8 sm:p-12 lg:p-14">
+            <div className="pointer-events-none absolute -right-24 -top-24 h-96 w-96 rounded-full bg-[#9ea6ff]/15 blur-[110px]" />
+
+            <div className="relative grid gap-12 lg:grid-cols-[1fr_1.25fr] lg:gap-14">
+              <div>
+                <p className="eyebrow">
+                  <b>03</b>
+                  Specialization
+                </p>
+                <h2 className="mt-5 text-4xl font-extrabold leading-[1.05] tracking-[-0.03em] sm:text-5xl">
+                  AI &amp; <span className="chrome-text">Machine Learning</span>
+                </h2>
+                <p className="mt-5 text-base leading-relaxed text-[var(--color-muted)] sm:text-lg">{aiMl.summary}</p>
+                <Crystal className="mt-8 hidden h-36 w-36 lg:block" />
+              </div>
+
+              <ul className="grid content-start gap-3 sm:grid-cols-2">
+                {aiMl.capabilities.map((cap, i) => (
+                  <li
+                    key={cap}
+                    className="glass-soft group flex items-center gap-3 rounded-2xl p-4 text-sm transition-colors hover:!border-white/30 hover:!bg-white/[0.08]"
+                  >
+                    <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl border border-white/15 font-mono text-xs text-white/70 transition-colors group-hover:bg-white group-hover:text-black">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <span className="text-white/90">{cap}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </Reveal>
-
-        <div className="mt-10 grid lg:grid-cols-[1fr_1fr] gap-10 items-start">
-          <Reveal delay={80}>
-            <p className="text-[var(--color-muted)] text-base sm:text-lg leading-relaxed">
-              {aiMl.summary}
-            </p>
-          </Reveal>
-
-          <Reveal delay={140}>
-            <ul className="grid sm:grid-cols-2 gap-3">
-              {aiMl.capabilities.map((cap) => (
-                <li
-                  key={cap}
-                  className="flex items-start gap-2.5 rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] px-4 py-3 text-sm text-[var(--color-text)]"
-                >
-                  <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--color-violet)]" />
-                  {cap}
-                </li>
-              ))}
-            </ul>
-          </Reveal>
-        </div>
       </div>
     </section>
   );

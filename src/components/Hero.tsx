@@ -1,153 +1,111 @@
-import { useEffect, useState } from "react";
-import { FiArrowDown, FiMail, FiDownload } from "react-icons/fi";
-import { personal } from "../data/portfolio";
+import type { ReactNode } from "react";
+import { FiArrowRight, FiDownload, FiCode, FiCpu, FiGlobe } from "react-icons/fi";
+import { personal, liveProjects, experience, skillGroups } from "../data/portfolio";
 
-const CODE_LINES = [
-  { indent: 0, content: [{ t: "const", c: "kw" }, { t: " developer = {", c: "text" }] },
-  { indent: 1, content: [{ t: "name", c: "prop" }, { t: ": ", c: "text" }, { t: '"Sana Ullah"', c: "str" }, { t: ",", c: "text" }] },
-  { indent: 1, content: [{ t: "role", c: "prop" }, { t: ": ", c: "text" }, { t: '"Frontend Developer"', c: "str" }, { t: ",", c: "text" }] },
-  { indent: 1, content: [{ t: "stack", c: "prop" }, { t: ": [", c: "text" }, { t: '"React.js"', c: "str" }, { t: ", ", c: "text" }, { t: '"TypeScript"', c: "str" }, { t: ", ", c: "text" }, { t: '"Tailwind"', c: "str" }, { t: "],", c: "text" }] },
-  { indent: 1, content: [{ t: "specialization", c: "prop" }, { t: ": ", c: "text" }, { t: '"AI/ML & LLM Development"', c: "str" }, { t: ",", c: "text" }] },
-  { indent: 1, content: [{ t: "currentlyAt", c: "prop" }, { t: ": ", c: "text" }, { t: '"Zie Pie"', c: "str" }] },
-  { indent: 0, content: [{ t: "};", c: "text" }] },
+const totalSkills = skillGroups.reduce((n, g) => n + g.skills.length, 0);
+
+const stats = [
+  { value: `${liveProjects.length}`, label: "Live projects" },
+  { value: `${experience.length}`, label: "Companies" },
+  { value: `${Math.floor(totalSkills / 10) * 10}+`, label: "Technologies" },
 ];
 
-const colorMap: Record<string, string> = {
-  kw: "text-[var(--color-violet)]",
-  prop: "text-[var(--color-cyan)]",
-  str: "text-[var(--color-amber)]",
-  text: "text-[var(--color-text)]",
-};
-
-function TypedCode() {
-  const [lineIdx, setLineIdx] = useState(0);
-  const [charIdx, setCharIdx] = useState(0);
-  const [done, setDone] = useState(false);
-
-  const flatLines = CODE_LINES.map((l) => ({
-    indent: l.indent,
-    full: l.content.map((seg) => seg.t).join(""),
-  }));
-
-  useEffect(() => {
-    if (lineIdx >= flatLines.length) {
-      setDone(true);
-      return;
-    }
-    const currentFull = flatLines[lineIdx].full;
-    if (charIdx < currentFull.length) {
-      const t = setTimeout(() => setCharIdx((c) => c + 1), 18 + Math.random() * 22);
-      return () => clearTimeout(t);
-    }
-    const t = setTimeout(() => {
-      setLineIdx((l) => l + 1);
-      setCharIdx(0);
-    }, 120);
-    return () => clearTimeout(t);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [lineIdx, charIdx]);
-
-  const renderSegments = (segs: { t: string; c: string }[], limit: number) => {
-    let remaining = limit;
-    return segs.map((seg, i) => {
-      if (remaining <= 0) return null;
-      const slice = seg.t.slice(0, remaining);
-      remaining -= slice.length;
-      return (
-        <span key={i} className={colorMap[seg.c]}>
-          {slice}
-        </span>
-      );
-    });
-  };
-
+function FloatChip({ icon, label, className }: { icon: ReactNode; label: string; className: string }) {
   return (
-    <pre className="font-mono text-[13px] sm:text-sm leading-6 overflow-x-auto">
-      {CODE_LINES.map((line, i) => {
-        if (i > lineIdx) return null;
-        const isCurrent = i === lineIdx && !done;
-        const limit = isCurrent ? charIdx : line.content.reduce((a, s) => a + s.t.length, 0);
-        return (
-          <div key={i} style={{ paddingLeft: `${line.indent * 1.25}rem` }}>
-            {renderSegments(line.content, limit)}
-            {isCurrent && <span className="caret text-[var(--color-cyan)]">▍</span>}
-          </div>
-        );
-      })}
-      {done && <span className="caret text-[var(--color-cyan)]">▍</span>}
-    </pre>
+    <div className={`glass-panel absolute z-20 flex items-center gap-2.5 rounded-2xl !bg-black/55 py-2 pl-2 pr-4 ${className}`}>
+      <span className="grid h-8 w-8 place-items-center rounded-xl bg-white text-[15px] text-black">{icon}</span>
+      <span className="whitespace-nowrap text-[13px] font-semibold">{label}</span>
+    </div>
+  );
+}
+
+function Portrait() {
+  return (
+    <div className="fade-up relative mx-auto w-full max-w-[420px] pt-[14%]" style={{ animationDelay: "150ms" }}>
+      <div className="relative aspect-square">
+        <div className="chrome-ring absolute -inset-4 rounded-full opacity-70" />
+        <div className="glass-panel absolute inset-0 overflow-hidden rounded-full !bg-[radial-gradient(circle_at_50%_28%,rgba(255,255,255,0.22),rgba(255,255,255,0.04)_60%)]">
+          <div className="absolute inset-x-0 top-0 h-1/2 bg-gradient-to-b from-white/10 to-transparent" />
+        </div>
+
+        {/* photo clipped by the disc at the bottom, head pops out above */}
+        <div className="absolute inset-x-0 bottom-0 h-[118%] overflow-hidden rounded-b-full">
+          <img
+            src="/sana-ullah.webp"
+            alt={`${personal.name}, ${personal.title}`}
+            width={492}
+            height={1100}
+            fetchPriority="high"
+            className="absolute left-1/2 top-0 w-[68%] max-w-none -translate-x-[48%] drop-shadow-[0_25px_35px_rgba(0,0,0,0.6)]"
+          />
+        </div>
+
+        <FloatChip icon={<FiCode />} label="React · TypeScript" className="float -left-4 top-[30%] sm:-left-12" />
+        <FloatChip icon={<FiCpu />} label="LLMs · RAG" className="float-delay -right-3 top-[6%] sm:-right-8" />
+        <FloatChip
+          icon={<FiGlobe />}
+          label={`${liveProjects.length} live websites`}
+          className="float -right-2 bottom-[10%] sm:-right-10"
+        />
+      </div>
+    </div>
   );
 }
 
 export default function Hero() {
   return (
-    <section
-      id="top"
-      className="relative min-h-screen flex items-center bg-grid pt-28 pb-16 sm:pt-32"
-    >
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute -top-32 left-1/4 h-96 w-96 rounded-full bg-[var(--color-cyan)]/10 blur-[120px]" />
-        <div className="absolute top-40 right-1/4 h-96 w-96 rounded-full bg-[var(--color-violet)]/10 blur-[120px]" />
-      </div>
+    <section id="top" className="relative pt-32 pb-20 sm:pt-36 lg:pb-24">
+      <div className="mx-auto grid min-h-[calc(100vh-8rem)] max-w-6xl items-center gap-16 px-5 sm:px-8 lg:grid-cols-[1.15fr_1fr] lg:gap-8">
+        <div className="fade-up min-w-0">
+          <span className="glass-soft inline-flex items-center gap-2.5 rounded-full py-1.5 pl-2 pr-4 text-sm text-[var(--color-muted)]">
+            <span className="relative flex h-2.5 w-2.5">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-70" />
+              <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-400" />
+            </span>
+            Available for new opportunities
+          </span>
 
-      <div className="relative mx-auto max-w-6xl w-full px-5 sm:px-8 grid lg:grid-cols-[1.1fr_1fr] gap-14 items-center">
-        <div className="animate-fade-up">
-          <p className="font-mono text-[13px] text-[var(--color-cyan)] mb-4">
-            hi, my name is
-          </p>
-          <h1 className="font-[var(--font-display)] font-bold tracking-tight text-4xl sm:text-5xl lg:text-6xl text-[var(--color-text)]">
-            {personal.name}
+          <p className="mt-8 font-mono text-xs tracking-[0.3em] text-[var(--color-accent)]">HELLO, I'M</p>
+          <h1 className="mt-2 text-6xl font-extrabold leading-[0.95] tracking-[-0.03em] sm:text-7xl lg:text-[5.4rem]">
+            <span className="chrome-text">Sana Ullah</span>
           </h1>
-          <p className="mt-3 font-[var(--font-display)] text-2xl sm:text-3xl text-gradient font-semibold">
-            {personal.title}
+          <p className="mt-6 text-2xl font-semibold leading-snug tracking-tight sm:text-3xl">
+            I craft{" "}
+            <span className="font-serif text-[1.15em] font-normal italic text-[var(--color-accent)]">beautiful</span>, fast
+            interfaces for the web.
           </p>
-          <p className="mt-1 font-mono text-sm text-[var(--color-muted)]">
-            {personal.subtitles.join("  ·  ")}
-          </p>
-          <p className="mt-6 max-w-xl text-[var(--color-muted)] text-base sm:text-lg leading-relaxed">
-            {personal.tagline}
-          </p>
+          <p className="mt-5 max-w-xl text-base leading-relaxed text-[var(--color-muted)] sm:text-lg">{personal.tagline}</p>
 
-          <div className="mt-9 flex flex-wrap gap-4">
+          <div className="mt-9 flex flex-wrap items-center gap-3">
             <a
               href="#projects"
-              className="inline-flex items-center gap-2 rounded-lg bg-[var(--color-text)] text-[var(--color-bg)] px-5 py-3 text-sm font-semibold hover:bg-[var(--color-cyan)] transition-colors"
+              className="btn-chrome group inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-sm font-bold transition-transform hover:scale-[1.03]"
             >
-              View My Work
-              <FiArrowDown className="text-base" />
-            </a>
-            <a
-              href="#contact"
-              className="inline-flex items-center gap-2 rounded-lg border border-[var(--color-border)] px-5 py-3 text-sm font-semibold text-[var(--color-text)] hover:border-[var(--color-violet)] hover:text-[var(--color-violet)] transition-colors"
-            >
-              <FiMail className="text-base" />
-              Contact Me
+              See my work
+              <FiArrowRight className="transition-transform group-hover:translate-x-1" />
             </a>
             <a
               href={personal.cvPath}
               download
-              className="inline-flex items-center gap-2 rounded-lg px-5 py-3 text-sm font-semibold text-[var(--color-muted)] hover:text-[var(--color-text)] transition-colors"
+              className="glass-panel inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold transition-colors hover:!border-white/40"
             >
-              <FiDownload className="text-base" />
+              <FiDownload />
               Download CV
             </a>
           </div>
+
+          <dl className="glass-soft mt-12 inline-grid grid-cols-3 divide-x divide-white/10 rounded-2xl">
+            {stats.map((s) => (
+              <div key={s.label} className="flex flex-col-reverse px-6 py-4 sm:px-8">
+                <dt className="mt-1 text-xs text-[var(--color-muted)] sm:text-sm">{s.label}</dt>
+                <dd className="chrome-text text-3xl font-extrabold sm:text-4xl">{s.value}</dd>
+              </div>
+            ))}
+          </dl>
         </div>
 
-        <div className="animate-fade-up" style={{ animationDelay: "150ms" }}>
-          <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] shadow-2xl shadow-black/40 overflow-hidden">
-            <div className="flex items-center gap-2 px-4 py-3 border-b border-[var(--color-border)] bg-[var(--color-surface-2)]">
-              <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f56]" />
-              <span className="h-2.5 w-2.5 rounded-full bg-[#ffbd2e]" />
-              <span className="h-2.5 w-2.5 rounded-full bg-[#27c93f]" />
-              <span className="ml-3 font-mono text-xs text-[var(--color-muted)]">
-                developer.ts
-              </span>
-            </div>
-            <div className="p-5">
-              <TypedCode />
-            </div>
-          </div>
+        <div className="px-8 sm:px-12 lg:px-4">
+          <Portrait />
         </div>
       </div>
     </section>

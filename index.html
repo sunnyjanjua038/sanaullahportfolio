@@ -22,20 +22,6 @@
     <meta property="og:site_name" content="Sana Ullah — Portfolio" />
   </head>
   <body>
-    <script>
-      (function () {
-        try {
-          var stored = localStorage.getItem("theme");
-          var theme =
-            stored === "light" || stored === "dark"
-              ? stored
-              : window.matchMedia("(prefers-color-scheme: light)").matches
-              ? "light"
-              : "dark";
-          if (theme === "light") document.documentElement.classList.add("light");
-        } catch (e) {}
-      })();
-    </script>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

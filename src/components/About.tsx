@@ -1,87 +1,78 @@
-import { FiMapPin, FiBriefcase } from "react-icons/fi";
+import { FiCode, FiCpu, FiMapPin, FiBriefcase } from "react-icons/fi";
 import Reveal from "./Reveal";
-import { personal, focusAreas } from "../data/portfolio";
+import SectionHeader from "./SectionHeader";
+import { personal, focusAreas, experience } from "../data/portfolio";
 
 export default function About() {
   return (
-    <section id="about" className="mx-auto max-w-6xl px-5 sm:px-8 py-24 sm:py-28">
-      <Reveal>
-        <div className="mb-3 flex items-center gap-2.5">
-          <span className="h-px w-8 bg-[var(--color-cyan)]" />
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--color-muted)]">
-            About
-          </p>
+    <section id="about" className="py-28 sm:py-32">
+      <div className="mx-auto max-w-6xl px-5 sm:px-8">
+        <SectionHeader
+          index="01"
+          label="About me"
+          title={
+            <>
+              Turning ideas into <span className="chrome-text">polished</span> web experiences.
+            </>
+          }
+        />
+
+        <div className="mt-14 grid gap-4 md:grid-cols-3">
+          <Reveal className="md:col-span-2" delay={60}>
+            <div className="glass-panel spot h-full rounded-3xl p-8 sm:p-10">
+              <p className="text-lg leading-relaxed text-[var(--color-muted)] sm:text-xl sm:leading-relaxed">
+                I'm a frontend web developer who builds responsive, production-ready interfaces with{" "}
+                <span className="font-semibold text-white">React.js, TypeScript and Tailwind CSS</span> — from clean
+                component architecture to smooth API integration.
+              </p>
+              <p className="mt-5 text-base leading-relaxed text-[var(--color-muted)] sm:text-lg">
+                Alongside that, I work practically with{" "}
+                <span className="font-semibold text-white">AI/ML and LLM technologies</span> — fine-tuning models,
+                building retrieval-augmented systems and preparing datasets for training.
+              </p>
+            </div>
+          </Reveal>
+
+          <Reveal delay={120}>
+            <div className="glass-panel spot flex h-full flex-col justify-center gap-7 rounded-3xl p-8">
+              {[
+                { icon: <FiMapPin />, label: "Based in", value: personal.location },
+                { icon: <FiBriefcase />, label: "Worked with", value: experience.map((e) => e.company).join(" · ") },
+              ].map((f) => (
+                <div key={f.label} className="flex items-start gap-4">
+                  <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-white text-lg text-black">
+                    {f.icon}
+                  </span>
+                  <div>
+                    <p className="font-mono text-[10px] tracking-[0.2em] text-[var(--color-subtle)]">{f.label.toUpperCase()}</p>
+                    <p className="mt-0.5 text-lg font-bold">{f.value}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </Reveal>
+
+          {[
+            { ...focusAreas.primary, icon: <FiCode />, span: "md:col-span-2" },
+            { ...focusAreas.secondary, icon: <FiCpu />, span: "" },
+          ].map((area, i) => (
+            <Reveal key={area.label} className={area.span} delay={160 + i * 60}>
+              <div className="glass-panel spot h-full rounded-3xl p-8">
+                <div className="flex items-center gap-3">
+                  <span className="glass-soft grid h-11 w-11 place-items-center rounded-xl text-lg">{area.icon}</span>
+                  <h3 className="text-xl font-bold tracking-tight">{area.label}</h3>
+                </div>
+                <div className="mt-6 flex flex-wrap gap-2">
+                  {area.items.map((item) => (
+                    <span key={item} className="chip">
+                      {item}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </Reveal>
+          ))}
         </div>
-        <h2 className="font-[var(--font-display)] text-3xl sm:text-4xl font-bold text-[var(--color-text)]">
-          Who I am
-        </h2>
-      </Reveal>
-
-      <div className="mt-10 grid md:grid-cols-[1.3fr_1fr] gap-10">
-        <Reveal delay={80}>
-          <p className="text-[var(--color-muted)] text-base sm:text-lg leading-relaxed">
-            I'm a frontend developer who builds responsive, production-ready
-            interfaces with React.js, Next.js, TypeScript and Tailwind CSS —
-            from clean component architecture to smooth API integration.
-            Frontend development is my primary focus and where I spend most
-            of my time, and I'm currently expanding into backend development
-            to grow into a full-stack role.
-          </p>
-          <p className="mt-4 text-[var(--color-muted)] text-base sm:text-lg leading-relaxed">
-            Alongside that, I work practically with AI/ML and LLM technologies —
-            fine-tuning open-source models like Qwen2.5 and Mistral-7B, and
-            building retrieval-augmented (RAG) systems. It's a specialization
-            I bring into projects where it adds real value, not my primary
-            job title.
-          </p>
-
-          <div className="mt-8 flex flex-col sm:flex-row gap-4 sm:gap-8">
-            <div className="flex items-center gap-2 text-sm text-[var(--color-text)]">
-              <FiBriefcase className="text-[var(--color-cyan)]" />
-              Currently Frontend Developer at{" "}
-              <span className="font-semibold">Zie Pie</span>
-            </div>
-            <div className="flex items-center gap-2 text-sm text-[var(--color-text)]">
-              <FiMapPin className="text-[var(--color-violet)]" />
-              {personal.location}
-            </div>
-          </div>
-        </Reveal>
-
-        <Reveal delay={160}>
-          <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6 space-y-6">
-            <div>
-              <p className="font-mono text-xs uppercase tracking-wide text-[var(--color-cyan)] mb-3">
-                {focusAreas.primary.label}
-              </p>
-              <div className="flex flex-wrap gap-2">
-                {focusAreas.primary.items.map((item) => (
-                  <span
-                    key={item}
-                    className="rounded-full border border-[var(--color-border)] px-3 py-1 text-xs text-[var(--color-text)]"
-                  >
-                    {item}
-                  </span>
-                ))}
-              </div>
-            </div>
-            <div>
-              <p className="font-mono text-xs uppercase tracking-wide text-[var(--color-violet)] mb-3">
-                {focusAreas.secondary.label}
-              </p>
-              <div className="flex flex-wrap gap-2">
-                {focusAreas.secondary.items.map((item) => (
-                  <span
-                    key={item}
-                    className="rounded-full border border-[var(--color-border)] px-3 py-1 text-xs text-[var(--color-text)]"
-                  >
-                    {item}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </div>
-        </Reveal>
       </div>
     </section>
   );
