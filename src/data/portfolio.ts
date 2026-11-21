@@ -102,6 +102,8 @@ export type ExperienceItem = {
   location?: string;
   current: boolean;
   summary: string;
+  projects: string[];
+  tech: string[];
   points: string[];
 };
 
@@ -113,12 +115,16 @@ export const experience: ExperienceItem[] = [
     period: "Dec 2025 — Oct 2026",
     location: "Remote",
     current: false,
-    summary: "Built the frontend of the Zie Pie bookkeeping application.",
+    summary:
+      "Built production frontends for a bookkeeping product, an education platform and a hotel booking project.",
+    projects: ["Bookkeeping App", "FreeTaleem", "HotelOTA"],
+    tech: ["React", "Tailwind CSS", "TanStack Query", "REST APIs"],
     points: [
-      "Developed features for the Zie Pie bookkeeping application using React and JavaScript, focusing on responsive, user-friendly interfaces",
-      "Implemented layouts and styling with Tailwind CSS, ensuring consistent design and modern UI components across the product",
-      "Used TanStack React Query to manage client-side data fetching and state, improving the clarity and maintainability of frontend logic",
-      "Applied TanStack React Query on the HotalOTA project to handle API interactions and asynchronous data, contributing to cleaner, more modular code",
+      "Built and shipped features for a bookkeeping web application using React and Tailwind CSS, keeping the UI responsive and consistent across screens",
+      "Managed API data fetching, caching and loading/error states with TanStack Query, making frontend logic cleaner and easier to maintain",
+      "Developed FreeTaleem, an education web app giving students free access to books (PDFs) and video lessons for all Pakistani boards",
+      "Applied the same data-fetching approach on the HotelOTA project using modular, reusable API hooks",
+      "Created a library of reusable UI components that sped up development across the product",
     ],
   },
   {
@@ -127,12 +133,13 @@ export const experience: ExperienceItem[] = [
     role: "Frontend Developer Intern",
     period: "Sep 2023 — Jun 2024",
     current: false,
-    summary: "Eight-month internship focused on React.js and e-commerce interfaces.",
+    summary: "Internship focused on React.js and e-commerce interfaces built from Figma designs.",
+    projects: ["E-commerce Website"],
+    tech: ["React.js", "Tailwind CSS", "Figma", "Git"],
     points: [
-      "Completed an eight-month internship specializing in React.js development",
-      "Led development of an e-commerce website using React.js and Tailwind CSS, from a design meticulously built in Figma",
-      "Independently designed and built multiple React.js projects, pushing them to GitHub for collaboration and portfolio showcase",
-      "Strengthened proficiency in React.js and broadened overall frontend development expertise",
+      "Led development of an e-commerce website in React.js and Tailwind CSS, implemented pixel-accurate from a Figma design",
+      "Independently built and published multiple React projects on GitHub",
+      "Strengthened skills in component architecture, responsive layouts and Git workflow",
     ],
   },
 ];
@@ -155,8 +162,8 @@ export const projects: Project[] = [
     category: "frontend",
   },
   {
-    id: "hotalota",
-    name: "HotalOTA",
+    id: "hotelota",
+    name: "HotelOTA",
     description:
       "Applied TanStack React Query to handle API interactions and asynchronous data, contributing cleaner and more modular frontend code to the project.",
     tags: ["React.js", "TanStack React Query"],

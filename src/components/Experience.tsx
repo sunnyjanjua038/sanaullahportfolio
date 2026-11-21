@@ -29,15 +29,32 @@ export default function Experience() {
                   </span>
 
                   <article className="glass-panel spot rounded-3xl p-7 sm:p-9">
-                    <div className="flex flex-wrap items-start justify-between gap-4">
+                    <p className="font-mono text-xs uppercase tracking-[0.2em] text-[var(--color-muted)]">
+                      Company {String(i + 1).padStart(2, "0")}
+                    </p>
+                    <div className="mt-2 flex flex-wrap items-start justify-between gap-4">
                       <div>
-                        <h3 className="text-2xl font-bold tracking-tight">{job.role}</h3>
-                        <p className="chrome-text mt-1 inline-block text-lg font-semibold">{job.company}</p>
+                        <h3 className="chrome-text inline-block text-3xl font-bold tracking-tight">{job.company}</h3>
+                        <p className="mt-1 text-lg font-semibold">
+                          {job.role}
+                          {job.location && (
+                            <span className="font-normal text-[var(--color-muted)]"> · {job.location}</span>
+                          )}
+                        </p>
                       </div>
                       <span className="chip font-mono !text-xs">{job.period}</span>
                     </div>
 
                     <p className="mt-4 text-[var(--color-muted)]">{job.summary}</p>
+
+                    <div className="mt-5 flex flex-wrap items-center gap-2">
+                      <span className="mr-1 text-xs font-semibold uppercase tracking-wider text-[var(--color-muted)]">
+                        Projects
+                      </span>
+                      {job.projects.map((p) => (
+                        <span key={p} className="chip !text-xs">{p}</span>
+                      ))}
+                    </div>
 
                     <ul className="mt-6 grid gap-x-8 gap-y-3 lg:grid-cols-2">
                       {job.points.map((point) => (
@@ -47,6 +64,12 @@ export default function Experience() {
                         </li>
                       ))}
                     </ul>
+
+                    <div className="mt-6 flex flex-wrap gap-2 border-t border-white/10 pt-5">
+                      {job.tech.map((t) => (
+                        <span key={t} className="font-mono text-xs text-[var(--color-muted)]">#{t}</span>
+                      ))}
+                    </div>
                   </article>
                 </div>
               </Reveal>
